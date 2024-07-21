@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Main Page{% endblock title %}
+
+{% block content %}
+    <div class="card text-center">
+        <div class="card-header bg-lighter text-dark">
+            <h2>Welcome to My Blog!</h2>
+        </div>
+        <div class="card-body">
+            <p class="lead">Here, you can read articles and news about the IT world.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}" role="button">Read Posts</a>
+        </div>
+        <div class="card-footer text-muted">
+            Happy Reading!
+        </div>
+    </div>
+{% endblock content %}
