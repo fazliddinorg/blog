@@ -25,3 +25,29 @@ class ArticleModelTest(TestCase):
             self.article.get_absolute_url(),
             reverse('article_detail', args=[str(self.article.id)])
         )
+class CommentModelTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='commenter', password='secret'
+        )
+        self.article = Article.objects.create(
+            title='Another Article',
+            summary='Another Summary',
+            body='Body of another article',
+            author=self.user
+        )
+        self.comment = Comment.objects.create(
+            article=self.article,
+            comment='Nice article!',
+            author=self.user
+        )
+
+    def test_comment_str(self):
+        self.assertEqual(str(self.comment), 'Nice article!')
+
+    def test_comment_get_absolute_url(self):
+        self.assertEqual(self.comment.get_absolute_url(), reverse('article_list'))
+
+    def test_article_comment_relationship(self):
+        self.assertEqual(self.article.comments.count(), 1)
+        self.assertEqual(self.article.comments.first(), self.comment)
